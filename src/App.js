@@ -1,70 +1,28 @@
-import { useState } from 'react';
-
-import { Typography, Box, styled } from '@mui/material';
-import './App.css';
-
-import Balance from './components/Balance';
-import ExpenseCard from './components/ExpenseCard';
-import Transactions from './components/Transactions';
-import NewTransaction from './components/NewTransaction';
-
-const Header = styled(Typography)`
-  margin: 10px 0;
-  color: blue;
-  font-size: 36px;
-  text-transform: uppercase;
-`;
-
-const Component = styled(Box)`
-  background: #FFF;
-  padding: 10px;
-  border-radius: 20px;
-  display: flex;
-  width: 800px;
-  & > div {
-    padding: 10px;
-    width: 50%;
-    height: 70vh;
-  }
-}
-`;
-
+import React, { useState, useEffect } from "react";
+// const API="https://jsonplaceholder.typicode.com/users";
+import{BrowserRouter,Routes,Route} from'react-router-dom';
+import EditStudent from'./EditStudent';
+import CreatStudent from "./CreatStudent";
+import StudentTable from "./StudentTable";
+import ViewStudent from "./ViewStudent";
+import'./App.css';
 function App() {
-  
-  const [transactions, setTransactions] = useState([
-    { id: 1, text: 'Momos', amount: -20},
-    { id: 2, text: 'Salary', amount: 3000},
-    { id: 3, text: 'Book', amount: -100},
-    { id: 4, text: 'Bonus', amount: 1500 },
-  ]);
-
-  const deleteTransaction = (id) => {
-    console.log(id);
-    setTransactions(transactions.filter(transaction => transaction.id !== id));
-    console.log(transactions);
-  }
-
-  const addTransaction = (transaction) => {
-    setTransactions(transactions => [transaction, ...transactions]);
-    console.log(transaction);
-    console.log(transactions);
-  }
-
 
   return (
-    <div className="App">
-      <Header>Expense Tracker</Header>
-      <Component>
-        <Box>
-          <Balance transactions={transactions} />
-          <ExpenseCard transactions={transactions} />
-          <NewTransaction addTransaction={addTransaction}/>
-        </Box>
-        <Box>
-          <Transactions transactions={transactions} deleteTransaction={deleteTransaction}/>
-        </Box>
-      </Component>
-    </div>
+    <BrowserRouter>
+  <Routes>
+  <Route path="/"element={<StudentTable/>} /> 
+  <Route path="/student/create" element={<CreatStudent/>} /> 
+  <Route path="/student/edit/:studentid" element={<EditStudent/>} /> 
+  <Route path="/student/view/:studentid" element={<ViewStudent/>} /> 
+
+    
+    
+    
+    </Routes>  
+    
+    
+    </BrowserRouter>
   );
 }
 
